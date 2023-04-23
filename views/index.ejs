@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+    img {
+      width: 100%;
+    }
+  </style>
+  <title>Mongo File Uploads</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 m-auto">
+        <h1 class="text-center display-4 my-4">Mongo File Uploads</h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+          <div class="custom-file mb-3">
+            <input type="file" name="file" id="file" class="custom-file-input">
+            <label for="file" class="custom-file-label">Choose File</label>
+            
+            <input type="text" name="title" id="title">
+            <label for="title" id="title">title</label>
+            <br>
+            <input type="text" name="des" id="des">
+            <label for="des" id="des">Description</label>
+
+            <br>
+            <input type="text" name="autho" id="autho">
+            <label for="autho" id="autho">Speaker</label>
+
+          </div>
+          <input type="submit" value="Submit" class="btn btn-primary btn-block">
+        </form>
+        <hr>
+        <!-- check the file exit or not  -->
+        <% if(files){ %>
+          <% files.forEach(function(file) { %>
+            <div class="card card-body mb-3">
+              <!-- check the file is image or not if image is true is displayed the imaged -->
+
+              <% if(file.isImage) { %>
+                <img src="image/<%= file.filename %>" alt="">
+                <% } else { %>
+                  <!-- it will display the only file name if the image is not ture  -->
+
+                  <%= file.filename %>
+                    <video width="320" height="240" controls>
+                      <source src="video/<%= file.filename %>" type="video/mp4">
+                      <source src="video/<%= file.filename %>" type="video/ogg">
+                    </video>
+                    <!-- <video id="videoPlayer" width="650" controls  autoplay>
+                      <source src="video/<%= file.filename %>" type="video/mp4" />
+                    </video> -->
+
+
+                    <% } %>
+                      <!-- delete the file using form using oveerdie the function  -->
+                      <form method="POST" action="/files/<%= file._id %>?_method=DELETE">
+                        <button class="btn btn-danger btn-block mt-4">Delete</button>
+                      </form>
+            </div>
+            <% }) %>
+              <% } else { %>
+                <p>No files to show</p>
+                <% } %>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
