@@ -19,57 +19,30 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 m-auto">
-        <h1 class="text-center display-4 my-4">Mongo File Uploads</h1>
+        <h1 class="text-center display-4 my-4">Admin Panel</h1>
         <form action="/upload" method="POST" enctype="multipart/form-data">
           <div class="custom-file mb-3">
-            <input type="file" name="file" id="file" class="custom-file-input">
-            <label for="file" class="custom-file-label">Choose File</label>
             
             <input type="text" name="title" id="title">
             <label for="title" id="title">title</label>
-            <br>
+            <br><br>
             <input type="text" name="des" id="des">
             <label for="des" id="des">Description</label>
-
-            <br>
+            <br><br>
+            <input type="text" name="format" id="format">
+            <label for="format" id="format">Audio/Video</label>
+            <br><br>
             <input type="text" name="autho" id="autho">
             <label for="autho" id="autho">Speaker</label>
-
+            <br><br>
+            <input type="file" name="file" id="file" class="custom-file-input">
+            <label for="file" class="custom-file-label">Choose File</label>
+            <br><br>
           </div>
           <input type="submit" value="Submit" class="btn btn-primary btn-block">
         </form>
         <hr>
-        <!-- check the file exit or not  -->
-        <% if(files){ %>
-          <% files.forEach(function(file) { %>
-            <div class="card card-body mb-3">
-              <!-- check the file is image or not if image is true is displayed the imaged -->
-
-              <% if(file.isImage) { %>
-                <img src="image/<%= file.filename %>" alt="">
-                <% } else { %>
-                  <!-- it will display the only file name if the image is not ture  -->
-
-                  <%= file.filename %>
-                    <video width="320" height="240" controls>
-                      <source src="video/<%= file.filename %>" type="video/mp4">
-                      <source src="video/<%= file.filename %>" type="video/ogg">
-                    </video>
-                    <!-- <video id="videoPlayer" width="650" controls  autoplay>
-                      <source src="video/<%= file.filename %>" type="video/mp4" />
-                    </video> -->
-
-
-                    <% } %>
-                      <!-- delete the file using form using oveerdie the function  -->
-                      <form method="POST" action="/files/<%= file._id %>?_method=DELETE">
-                        <button class="btn btn-danger btn-block mt-4">Delete</button>
-                      </form>
-            </div>
-            <% }) %>
-              <% } else { %>
-                <p>No files to show</p>
-                <% } %>
+        
       </div>
     </div>
   </div>
